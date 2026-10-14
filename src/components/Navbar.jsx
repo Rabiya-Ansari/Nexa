@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { themeContext } from '../context/ThemeContext';
 
 const Navbar = () => {
+  const { theme, setTheme } = useContext(themeContext);
+
+  const handleTheme = () => {
+    if (theme == "light") {
+      setTheme("dark")
+    }
+    else {
+      setTheme("light")
+    }
+  }
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm justify-between ">
+      <div className={`navbar shadow-sm justify-between  ${theme == "dark" ? "bg-black text-white" : "bg-white text-black"}`}>
         <div className="flex ">
-          <a className="btn btn-ghost text-xl">NEXAMOBILE</a>
+          <a className=" text-xl">NEXAMOBILE</a>
         </div>
         <nav className='display flex '>
           <ul className='display flex font-bold gap-5 align-item-center'>
-            <Link to="/"><li>Home</li></Link>
-            <Link to='/about'><li>About</li></Link>
-            <Link to='/services'><li>Services</li></Link>
-            <Link to='/contact'><li>Contact</li></Link>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to='/about'>About</Link></li>
+            <li><Link to='/services'>Services</Link></li>
+            <li><Link to='/contact'>Contact</Link></li>
 
           </ul>
         </nav>
         <div className="flex gap-2">
+          <button className='border-1' onClick={handleTheme}>switch theme</button>
           <input type="text" placeholder="Search" className="input w-24 md:w-auto" />
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
